@@ -1,8 +1,0 @@
---- Srafovani.java    2001-03-17 12:00:00.681996204 +0200
-+++ Srafovani.java    2001-03-17 12:00:01.721962690 +0200
-@@ -6,4 +6,4 @@
-        for (int radek = 0; radek < vyska; radek++) {
--           for (int odsazeni = 0; odsazeni < radek; odsazeni++) {
-+           for (int odsazeni = 0; odsazeni < vyska - radek - 1; odsazeni++) {
-                System.out.print(" ");
-            }
