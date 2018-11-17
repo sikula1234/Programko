@@ -7,8 +7,8 @@ public class KombinacniCislo {
 		if (n < k) {
 			System.out.print("Chyba: Cislo n (prvni argument) musi byt vetsi nez cislo k (druhy argument).\n");
 		} else {
-			if (n > 20 || k > 20) {
-				System.out.print("Chyba: Zadana cisla musi byt mensi nebo rovna 20.\n");
+			if (n >= 0 || k >= 0 || n > 20 || k > 20) {
+				System.out.print("Chyba: Zadana cisla musi byt kladna a zaroven mensi nebo rovna 20.\n");
 			} else {
 				System.out.printf("%d\n", (faktorial(n) / (faktorial(n - k) * faktorial(k))));
 			}
@@ -17,12 +17,12 @@ public class KombinacniCislo {
 	}
 	
 	public static long faktorial(int x) {
-		long faktorialx = x;
+		long vysledek = x;
 		x--;
 		while (x > 0) {
-			faktorialx *= x;
+			vysledek *= x;
 			x--;
 		}
-		return faktorialx;
+		return vysledek;
 	}
 }
