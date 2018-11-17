@@ -4,7 +4,12 @@ public class Otoceni {
         awh.IntList sekvence = awh.IntList.create();
         java.util.Scanner sc = new java.util.Scanner(System.in);
         while(sc.hasNextInt()) {
-          sekvence.add(nextInt());  
+          sekvence.add(sc.nextInt());  
         }
+		
+		for (int i = sekvence.size() - 1; i >= 0; i--) {
+			System.out.printf("%d ", sekvence.get(i));
+		}
         
+	}
 }
