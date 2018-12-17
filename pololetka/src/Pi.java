@@ -5,9 +5,7 @@ public class Pi {
 		double boduVKruhu = 0;
 
 		for (int i = 0; i < boduCelkem; i++) {
-			double x = Math.random();
-			double y = Math.random();
-			if (jeVKruhu(x, y)) {
+			if (jeVKruhu(Math.random(), Math.random())) {
 				boduVKruhu++;
 			}
 		}
