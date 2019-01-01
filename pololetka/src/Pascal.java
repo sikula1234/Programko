@@ -20,6 +20,7 @@ public class Pascal {
 				// Pokud jde o prvni cislo na radku, neodsazuj ho
 				if (poradiNaRadku == 0) {
 					System.out.printf("%d", kombinacniCislo(radek, poradiNaRadku));
+				// Dalsi cisla odsad, aby mela sirku 6 znaku
 				} else {
 					System.out.printf("%6d", kombinacniCislo(radek, poradiNaRadku));
 				}

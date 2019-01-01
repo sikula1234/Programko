@@ -1,5 +1,4 @@
 public class Vlnovka {
-
 	public static void main(String[] args) {
 
 		if (Integer.parseInt(args[0]) <= 1) {
@@ -42,5 +41,4 @@ public class Vlnovka {
 		}
 		return casNaKanal;
 	}
-
 }

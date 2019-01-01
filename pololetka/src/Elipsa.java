@@ -12,13 +12,13 @@ public class Elipsa {
 		double a = Integer.parseInt(args[0]);
 		double b = Integer.parseInt(args[1]);
 
-		// Pro kazdou souradnici [x,y] (postupne po radcich) zjisti, zda lezi v elipse
+		// Pro kazdy souradnicovy bod [x,y] (postupne po radcich) zjisti, zda lezi v elipse
 		for (double y = -b; y <= b; y++) {
 			for (double x = -a; x <= a; x++) {
-				// Pokud souradnice [x,y] lezi v elipse, vyiskni na ni "X"
+				// Pokud bod [x,y] lezi v elipse, vytiskni na nem "X"
 				if (leziVElipse(x, y, a, b)) {
 					System.out.print("X");
-				// Pokud souradnice [x,y] nelezi v elipse, vyiskni na ni mezeru
+				// Pokud bod [x,y] nelezi v elipse, vytiskni na nem mezeru
 				} else {
 					System.out.print(" ");
 				}
