@@ -9,18 +9,18 @@ public class Elipsa {
 			System.exit(0);
 		}
 
-		double a = Integer.parseInt(args[0]);
-		double b = Integer.parseInt(args[1]);
+		int hlavniPoloosa = Integer.parseInt(args[0]);
+		int vedlejsiPoloosa = Integer.parseInt(args[1]);
 
 		// Pro kazdy souradnicovy bod [x,y] (postupne po radcich) zjisti,
 		// zda lezi v elipse
-		for (double y = -b; y <= b; y++) {
-			for (double x = -a; x <= a; x++) {
-				// Pokud bod [x,y] lezi v elipse, vytiskni na nem "X"
-				if (leziVElipse(x, y, a, b)) {
+		for (int y = -vedlejsiPoloosa; y <= vedlejsiPoloosa; y++) {
+			for (int x = -hlavniPoloosa; x <= hlavniPoloosa; x++) {
+				if (leziVElipse(x, y, hlavniPoloosa, vedlejsiPoloosa)) {
+					// Pokud bod [x,y] lezi v elipse, vytiskni na nem "X"
 					System.out.print("X");
-					// Pokud bod [x,y] nelezi v elipse, vytiskni na nem mezeru
 				} else {
+					// Pokud bod [x,y] nelezi v elipse, vytiskni na nem mezeru
 					System.out.print(" ");
 				}
 			}

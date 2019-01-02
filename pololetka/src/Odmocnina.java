@@ -7,19 +7,19 @@ public class Odmocnina {
 			System.exit(0);
 		}
 
-		double S = Double.parseDouble(args[0]);
+		double odmocnovaneCislo = Double.parseDouble(args[0]);
 		double presnost = Double.parseDouble(args[1]);
-		double x1 = 1;
-		double x2 = 2 + presnost;
+		double predchoziOdhad = 1;
+		double nejnovejsiOdhad = 2 + presnost;
 
 		// Nasledujici postup (Newtonova metoda) prevzat z
 		// https://en.wikipedia.org/wiki/Cube_root#Numerical_methods
-		while (Math.abs(x2 - x1) >= presnost) {
-			x1 = x2;
-			x2 = ((S / (x1 * x1)) + (2 * x1)) / 3;
+		while (Math.abs(nejnovejsiOdhad - predchoziOdhad) >= presnost) {
+			predchoziOdhad = nejnovejsiOdhad;
+			nejnovejsiOdhad = ((odmocnovaneCislo / (predchoziOdhad * predchoziOdhad)) + (2 * predchoziOdhad)) / 3;
 		}
 
-		System.out.printf("%.10f\n", x2);
+		System.out.printf("%.10f\n", nejnovejsiOdhad);
 
 	}
 }

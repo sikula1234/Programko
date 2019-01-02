@@ -5,7 +5,7 @@ public class Seq {
 		int konec = 10;
 		int krok = 1;
 		int posunArgumentu = 0;
-		String oddelovac = new String(" ");
+		String oddelovac = " ";
 
 		if (args.length >= 1 && args[0].equals("-s")) {
 			oddelovac = args[1];

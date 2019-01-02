@@ -5,7 +5,9 @@ public class Pi {
 		double boduVKruhu = 0;
 
 		for (int i = 0; i < boduCelkem; i++) {
-			if (jeVKruhu(Math.random(), Math.random())) {
+			// Vygeneruj bod s nahodnou x-ovou a y-ovou vzdalenosti
+			// od stredu kruhu (jez ma souradnice x = 0.5, y = 0.5)
+			if (jeVKruhu(0.5 - Math.random(), 0.5 - Math.random())) {
 				boduVKruhu++;
 			}
 		}
@@ -20,9 +22,10 @@ public class Pi {
 	}
 
 	// Bod lezi v kruhu, pokud je vzdalenost bodu od stredu kruhu
-	// (souradnice x = 0.5, y = 0.5) mensi nez delka polomeru kruhu
-	// (r = 0.5). Tato uvaha je zde vystizena Pythagorovou vetou.
+	// (vygenerovana volanim funkce jeVKruhu vyse)
+	// mensi nez delka polomeru kruhu (r = 0.5).
+	// Tato uvaha je zde vystizena Pythagorovou vetou.
 	public static boolean jeVKruhu(double x, double y) {
-		return (Math.pow(Math.abs(0.5 - x), 2) + Math.pow(Math.abs(0.5 - y), 2) < Math.pow(0.5, 2));
+		return x * x + y * y < 0.25;
 	}
 }
