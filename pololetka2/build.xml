@@ -83,11 +83,17 @@
         </jar>
     </target>
 
-    <target name="example"
+    <target name="example-license"
             depends="jar"
             description="Example execution: reformat LICENSE file.">
         <java jar="out/jars/app.jar" fork="true" input="LICENSE" />
     </target>
+	
+	<target name="example-lorem"
+	            depends="jar"
+	            description="Example execution: reformat lorem.txt file.">
+	        <java jar="out/jars/app.jar" fork="true" input="lorem.txt" />
+	    </target>
 
     <target name="clean"
             description="Remove generated files."
