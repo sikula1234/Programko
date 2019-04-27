@@ -27,12 +27,12 @@ package cz.alisma.alej.text.wrapping;
 
 import java.util.List;
 
-/** Right-aligns a line. */
-public class RightAligner implements Aligner {
+/** Center-aligns a line. */
+public class CenterAligner implements Aligner {
 	
 	int width;
 
-	public RightAligner(int w) {
+	public CenterAligner(int w) {
 		width = w;
 	}
 	
@@ -40,7 +40,7 @@ public class RightAligner implements Aligner {
     public String format(List<String> words) {
         StringBuilder result = new StringBuilder();
         int lineLength = 0;
-        int spacesInFront = 0;
+        double spacesInFront = 0;
         
         for (String w : words) {
         	lineLength += w.length() + 1;
@@ -48,7 +48,7 @@ public class RightAligner implements Aligner {
         
         lineLength--;
         
-        spacesInFront = width - lineLength;
+        spacesInFront = Math.floor((width - lineLength) / 2);
         
         for (int i = 0; i <= spacesInFront; i++) {
         	result.append(" ");

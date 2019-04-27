@@ -27,12 +27,12 @@ package cz.alisma.alej.text.wrapping;
 
 import java.util.List;
 
-/** Right-aligns a line. */
-public class RightAligner implements Aligner {
+/** Justify-aligns a line. */
+public class JustifyAligner implements Aligner {
 	
 	int width;
 
-	public RightAligner(int w) {
+	public JustifyAligner(int w) {
 		width = w;
 	}
 	
@@ -40,7 +40,11 @@ public class RightAligner implements Aligner {
     public String format(List<String> words) {
         StringBuilder result = new StringBuilder();
         int lineLength = 0;
-        int spacesInFront = 0;
+        double redundantSpaces = 0;
+        double redundantSpacesPerWord = 0;
+        double spacesToBeAdded = 0;
+        double numberOfWords = words.size();
+        boolean dontJustifyThis = false;
         
         for (String w : words) {
         	lineLength += w.length() + 1;
@@ -48,16 +52,28 @@ public class RightAligner implements Aligner {
         
         lineLength--;
         
-        spacesInFront = width - lineLength;
-        
-        for (int i = 0; i <= spacesInFront; i++) {
-        	result.append(" ");
+        if (lineLength < (width / 2)) {
+        	dontJustifyThis = true;
         }
+        
+        // System.out.printf("noW: %f\n", numberOfWords);
+        redundantSpaces = width - lineLength + 1;
+        // System.out.printf("rS: %f\n", redundantSpaces);
+        redundantSpacesPerWord = (redundantSpaces + 1) / (numberOfWords - 1);
+        // System.out.printf("rSpW: %f\n", redundantSpacesPerWord);
         
         boolean first = true;
         for (String w : words) {
-            if (!first) {
+        	if (!first) {
+        		spacesToBeAdded += redundantSpacesPerWord;
+            	// System.out.printf(" (%f) ", spacesToBeAdded);
                 result.append(" ");
+                if (!dontJustifyThis) {
+                	while (spacesToBeAdded > 1.0000000001) {
+                		result.append(" ");
+                		spacesToBeAdded -= 1;
+                	}
+                }
             } else {
                 first = false;
             }

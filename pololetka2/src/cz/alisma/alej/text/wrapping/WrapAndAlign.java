@@ -33,11 +33,46 @@ public class WrapAndAlign {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         ParagraphDetector pd = new ParagraphDetector(input);
+        Aligner aligner = new LeftAligner();
         
-        maxWidth = 60;
+        maxWidth = DEF_MAX_WIDTH;
+        int alignerArgNum = -1;
+        boolean nextArgIsWidth = false;
+        boolean needToLowerMaxWidth = false;
         
-        Aligner aligner = new RightAligner(maxWidth);
+        // Scan and interpret all arguments
+        for (int i = 0; i < args.length; i++) {
+        	if (nextArgIsWidth == true) {
+        		maxWidth = Integer.parseInt(args[i]);
+        		nextArgIsWidth = false;
+        	} else if (args[i].startsWith("--width=")) {
+           		maxWidth = Integer.parseInt(args[i].substring(8, args[i].length()));
+           	} else if (args[i].equals("-w")) {
+           		nextArgIsWidth = true;
+           	} else if (args[i].equals("--right") || args[i].equals("--center")
+           				|| args[i].equals("--centre") || args[i].equals("--justify")) {
+           		alignerArgNum = i;
+           		needToLowerMaxWidth = true;
+           	}
+        }
         
+        // Lower maxWidth by 1 if necessary
+        if (needToLowerMaxWidth) {
+        	maxWidth--;
+        }
+        
+        // Set the correct alligner
+        if (alignerArgNum > -1) {
+        	if (args[alignerArgNum].equals("--right")) {
+        		aligner = new RightAligner(maxWidth);
+        	} else if (args[alignerArgNum].equals("--center") || args[alignerArgNum].equals("--centre")) {
+        		aligner = new CenterAligner(maxWidth);
+        	} else if (args[alignerArgNum].equals("--justify")) {
+        		aligner = new JustifyAligner(maxWidth);
+        	}
+        } else {
+        	aligner = new LeftAligner();
+        }
 
         while (pd.hasNextParagraph()) {
             Paragraph para = pd.nextParagraph();

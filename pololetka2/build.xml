@@ -86,13 +86,20 @@
     <target name="example-license"
             depends="jar"
             description="Example execution: reformat LICENSE file.">
-        <java jar="out/jars/app.jar" fork="true" input="LICENSE" />
+        <java jar="out/jars/app.jar" fork="true" input="LICENSE">
+        	<arg value="-w"/>
+			<arg value="70"/>
+        	<arg value="--center"/>
+        </java>
     </target>
 	
 	<target name="example-lorem"
 	            depends="jar"
 	            description="Example execution: reformat lorem.txt file.">
-	        <java jar="out/jars/app.jar" fork="true" input="lorem.txt" />
+	        <java jar="out/jars/app.jar" fork="true" input="lorem.txt">
+	        	<arg value="--right"/>
+	        	<arg value="--width=20"/>
+	        </java>
 	    </target>
 
     <target name="clean"
