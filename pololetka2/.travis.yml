@@ -3,7 +3,7 @@ before_install:
   - sudo apt-get install ant-optional
 script:
   - ant
-  - ant example
+  - ant compile
   - ant test
 os:
   - linux
