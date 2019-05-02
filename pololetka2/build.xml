@@ -88,7 +88,7 @@
             description="Example execution: reformat LICENSE file.">
         <java jar="out/jars/app.jar" fork="true" input="LICENSE">
         	<arg value="-w"/>
-			<arg value="70"/>
+			<arg value="80"/>
         	<arg value="--center"/>
         </java>
     </target>
