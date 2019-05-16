@@ -33,27 +33,29 @@ public class RightAligner implements Aligner {
 	int width;
 
 	public RightAligner(int w) {
-		width = w;
+		width = w + 1;
 	}
 	
     @Override
     public String format(List<String> words) {
         StringBuilder result = new StringBuilder();
         int lineLength = 0;
-        int spacesInFront = 0;
         
+        // Count characters and spaces on a line
         for (String w : words) {
         	lineLength += w.length() + 1;
         }
-        
+        // Subtract the space afer the last word
         lineLength--;
         
-        spacesInFront = width - lineLength;
+        // Calculate and add spaces in front of the text
+        int spacesInFront = width - lineLength;
         
-        for (int i = 0; i <= spacesInFront; i++) {
+        for (int i = 0; i < spacesInFront; i++) {
         	result.append(" ");
         }
         
+        // Add words and spaces inbetween them
         boolean first = true;
         for (String w : words) {
             if (!first) {

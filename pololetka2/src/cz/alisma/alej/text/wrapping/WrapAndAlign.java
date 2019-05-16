@@ -2,6 +2,7 @@
  * MIT License
  * Copyright (c) 2017 Gymnazium Nad Aleji
  * Copyright (c) 2017 Vojtech Horky
+ * Copyright (c) 2019 Jiri Heller
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +62,7 @@ public class WrapAndAlign {
         	maxWidth--;
         }
         
-        // Set the correct alligner
+        // Change aligner if requested
         if (alignerArgNum > -1) {
         	if (args[alignerArgNum].equals("--right")) {
         		aligner = new RightAligner(maxWidth);
@@ -70,10 +71,9 @@ public class WrapAndAlign {
         	} else if (args[alignerArgNum].equals("--justify")) {
         		aligner = new JustifyAligner(maxWidth);
         	}
-        } else {
-        	aligner = new LeftAligner();
         }
-
+        
+        // Print
         while (pd.hasNextParagraph()) {
             Paragraph para = pd.nextParagraph();
             LinePrinter line = new LinePrinter(System.out, maxWidth, aligner);

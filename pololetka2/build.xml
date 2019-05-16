@@ -85,20 +85,23 @@
 
     <target name="example-license"
             depends="jar"
-            description="Example execution: reformat LICENSE file.">
+            description="Example execution and foolproofness demonstration: reformat LICENSE file with JustifyALigner to width 90.">
         <java jar="out/jars/app.jar" fork="true" input="LICENSE">
         	<arg value="-w"/>
-			<arg value="80"/>
+			<arg value="90"/>
         	<arg value="--center"/>
+        	<arg value="--justify"/>
+        	<arg value="--tryingToBreakThis"/>
+        	<arg value="--muehehe"/>
         </java>
     </target>
 	
 	<target name="example-lorem"
 	            depends="jar"
-	            description="Example execution: reformat lorem.txt file.">
+	            description="Example execution: reformat lorem.txt file with CenterALigner to width 48.">
 	        <java jar="out/jars/app.jar" fork="true" input="lorem.txt">
-	        	<arg value="--right"/>
-	        	<arg value="--width=20"/>
+	        	<arg value="--centre"/>
+	        	<arg value="--width=48"/>
 	        </java>
 	    </target>
 

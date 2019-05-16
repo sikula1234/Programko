@@ -33,46 +33,46 @@ public class JustifyAligner implements Aligner {
 	int width;
 
 	public JustifyAligner(int w) {
-		width = w;
+		width = w + 1;
 	}
 	
     @Override
     public String format(List<String> words) {
         StringBuilder result = new StringBuilder();
         int lineLength = 0;
-        double redundantSpaces = 0;
-        double redundantSpacesPerWord = 0;
-        double spacesToBeAdded = 0;
-        double numberOfWords = words.size();
-        boolean dontJustifyThis = false;
+        boolean justifyThis = true;
         
+        // Count characters and spaces on a line
         for (String w : words) {
         	lineLength += w.length() + 1;
         }
-        
+        // Subtract the space afer the last word
         lineLength--;
         
+        // Disable center-justifying if the text on the line is too short
         if (lineLength < (width / 2)) {
-        	dontJustifyThis = true;
+        	justifyThis = false;
         }
         
-        // System.out.printf("noW: %f\n", numberOfWords);
-        redundantSpaces = width - lineLength + 1;
-        // System.out.printf("rS: %f\n", redundantSpaces);
-        redundantSpacesPerWord = (redundantSpaces + 1) / (numberOfWords - 1);
-        // System.out.printf("rSpW: %f\n", redundantSpacesPerWord);
+        // Calculate extra spaces per word
+        double extraSpaces = width - lineLength;
+        double extraSpacesPerWord = (extraSpaces + 1) / (words.size() - 1);
         
+        // Add words and spaces inbetween them
+        double spacesToBeAdded = 0;
         boolean first = true;
         for (String w : words) {
         	if (!first) {
-        		spacesToBeAdded += redundantSpacesPerWord;
-            	// System.out.printf(" (%f) ", spacesToBeAdded);
                 result.append(" ");
-                if (!dontJustifyThis) {
-                	while (spacesToBeAdded > 1.0000000001) {
+                
+                // If it is time to add extra spaces, do it!
+                spacesToBeAdded += extraSpacesPerWord;
+                if (justifyThis) {
+                	while (spacesToBeAdded > 1.00000001) {
                 		result.append(" ");
                 		spacesToBeAdded -= 1;
                 	}
+                	
                 }
             } else {
                 first = false;

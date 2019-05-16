@@ -33,27 +33,28 @@ public class CenterAligner implements Aligner {
 	int width;
 
 	public CenterAligner(int w) {
-		width = w;
+		width = w + 1;
 	}
 	
     @Override
     public String format(List<String> words) {
         StringBuilder result = new StringBuilder();
         int lineLength = 0;
-        double spacesInFront = 0;
         
+        // Count characters and spaces on a line
         for (String w : words) {
         	lineLength += w.length() + 1;
         }
-        
+        // Subtract the space afer the last word
         lineLength--;
         
-        spacesInFront = Math.floor((width - lineLength) / 2);
-        
-        for (int i = 0; i <= spacesInFront; i++) {
+        // Calculate and add spaces in front of the text
+        double spacesInFront = Math.floor((width - lineLength) / 2);
+        for (int i = 0; i < spacesInFront; i++) {
         	result.append(" ");
         }
         
+        // Add words and spaces inbetween them
         boolean first = true;
         for (String w : words) {
             if (!first) {
