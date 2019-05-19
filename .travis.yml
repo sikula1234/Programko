@@ -2,7 +2,7 @@ language: java
 before_install:
   - sudo apt-get install ant-optional
 before_script:
-  - cd pololetka2
+  - cd WrapAndAlign
 script:
   - ant
   - ant compile
