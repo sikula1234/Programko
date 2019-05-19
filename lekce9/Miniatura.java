@@ -1,45 +1,51 @@
 public class Miniatura {
     public static void main(String[] args) {
         
-        String vstupniSoubor;
+		awh.Image vstupniSoubor = awh.Image.loadFromFile(args[0]);
         int sirka = 300;
         int vyska = 150;
-        String vystupniSoubor;
+		String vystupniSoubor;
+		boolean zdeformovat = false;
         
         if (args.length == 2) {
-            vstupniSoubor = args[0];
             vystupniSoubor = args[1];
         } else if (args.length == 3) {
-            vstupniSoubor = args[0];
             vystupniSoubor = args[2];
             String[] rozmery = args[1].split("x");
             if (rozmery.length != 2) {
-                awh.Sys.die("Spatne zadane rozmery (%s).", args[1]);
+                awh.Sys.die("Spatne zadane rozmery! Jako druhy argument zadejte rozmery ve tvaru VxS");
             }
             sirka = Integer.parseInt(rozmery[0]);
-            vyska = Integer.parseInt(rozmery[1]);
+			if (rozmery[1].endsWith("!")) {
+				zdeformovat = true;
+				vyska = Integer.parseInt(rozmery[1].substring(0, (rozmery[1].length()-1)));
+			} else {
+				vyska = Integer.parseInt(rozmery[1]);
+			}
         } else {
-            awh.Sys.die("Pouziti: vstup.jpg [VxS] vystup.jpg");
-            // Bez returnu si bude prekladac stezovat
+            awh.Sys.die("Spatne zadani! Spravne poradi argumentu je: vstup.jpg [VxS][!] vystup.jpg");
             return;
         }
-        
             
-		    int sirkaVstupu = vstupniSoubor.getWidth();
+		int sirkaVstupu = vstupniSoubor.getWidth();
         int vyskaVstupu = vstupniSoubor.getHeight();
 		
-		    awh.Image vystupniSoubor = awh.Image.createEmpty(150, 100, awh.Color.GRAY);
- 
-		    if ((vyskaVstupu / 100) > (sirkaVstupu / 150)) {	// pokud je obrazek na vysku
-			     vstupniSoubor.rescale((sirkaVstupu * 100 / vyskaVstupu), 100);
-			     vystupniSoubor.pasteFrom(vstup, 0, 0);
-		    } else {
-			     vstupniSoubor.rescale(150, (vyskaVstupu * 150 / sirkaVstupu));
-			     vystupniSoubor.pasteFrom(vstupniSoubor, 0, 0);
-		    }
- 
-          awh.Image obrazek = awh.Image.loadFromFile(vstupniSoubor);
-          obrazek.rescale(sirka, vyska);
-          obrazek.saveToFile(vystupniSoubor);
+		if (zdeformovat == false) {
+			awh.Image obrazek = awh.Image.createEmpty(sirka, vyska, awh.Color.GRAY);
+			
+			// pokud je obrazek na vysku
+			if ((vyskaVstupu / vyska) > (sirkaVstupu / sirka)) {	
+				vstupniSoubor.rescale((sirkaVstupu * vyska / vyskaVstupu), vyska);
+				obrazek.pasteFrom(vstupniSoubor, 0, 0);
+			// pokud je obrazek na sirku
+			} else {
+				vstupniSoubor.rescale(sirka, (vyskaVstupu * sirka / sirkaVstupu));
+				obrazek.pasteFrom(vstupniSoubor, 0, 0);
+			}
+			obrazek.saveToFile(vystupniSoubor);
+		} else {
+			vstupniSoubor.rescale(sirka, vyska);
+			vstupniSoubor.saveToFile(vystupniSoubor);
+		}        
     }
 }
