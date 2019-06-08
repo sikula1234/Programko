@@ -1,6 +1,6 @@
 Od: Dodavatel elektøtiny
 Pro: {{ zakaznik }}
-Vìc: Úhrada za mìsíc {{ mesic }} {{ rok }}
+Vìc: Úhrada za mìsíc {{ mesic v roce }} {{ rok }}
  
 Dobrý den,
   posíláme informace k zaplacení úhrady za další mìsíc.

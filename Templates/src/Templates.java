@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Map;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 public class Templates {
@@ -7,7 +8,7 @@ public class Templates {
 	public static void main(String[] args) {
 		Map<String, String> variables = new HashMap<String, String>();
 
-		// Scan all arguments and put variable-data pairs into the HashMap
+		// Scan all arguments and put variable-value pairs into the HashMap
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].startsWith("--var=")) {
 				String varRequestText = args[i].substring(6, args[i].length());
@@ -17,11 +18,24 @@ public class Templates {
 				}
 			}
 		}
+		
+		// Get the template file from standard input
+		Scanner tplInput = new java.util.Scanner(System.in);
+		
+		// Redirect the writer to standard output
+		PrintWriter output = new PrintWriter(System.out, true);
+		
+		// Reprint the template, replacing variables
+		fillTemplate(tplInput, variables, output);
+		
+		tplInput.close();
+	}
 
-		// Reprint the text line by line
-		Scanner input = new java.util.Scanner(System.in);
-		while (input.hasNextLine()) {
-			String line = input.nextLine();
+	public static void fillTemplate(Scanner tplInput, Map<String, String> variables, PrintWriter output) {
+
+		// Reprint the text from the template scanner line by line
+		while (tplInput.hasNextLine()) {
+			String line = tplInput.nextLine();
 			String words[] = line.split(" ");
 
 			// Reprint the line word by word
@@ -30,12 +44,12 @@ public class Templates {
 
 				// Add a space in front of the word unless it is the first word on the line
 				if (!first) {
-					System.out.print(" ");
+					output.print(" ");
 				} else {
 					first = false;
 				}
 
-				// Replace "{{ variable name }}" with specific data using the HashMap
+				// Replace "{{ variable name }}" with specific value using the HashMap
 				if (words[i].equals("{{")) {
 					i++;
 
@@ -47,24 +61,22 @@ public class Templates {
 						i++;
 					}
 
-					// Print specific data if available, otherwise print "???"
+					// Print specific value if available, otherwise print "???"
 					if (variables.containsKey(variableKey)) {
-						System.out.print(variables.get(variableKey));
+						output.print(variables.get(variableKey));
 					} else {
-						System.out.print("???");
+						output.print("???");
 					}
 
 				} else {
 					// Reprint a word unchanged if it is not a variable name
-					System.out.print(words[i]);
+					output.print(words[i]);
 				}
-				
-			}
-			System.out.println();
 
+			}
+			output.println();
 		}
 
-		input.close();
-
 	}
+
 }
